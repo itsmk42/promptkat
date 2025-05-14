@@ -1,0 +1,198 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// User model
+model User {
+  id                String    @id @default(cuid())
+  name              String?
+  email             String    @unique
+  emailVerified     DateTime?
+  password          String?
+  image             String?
+  role              String    @default("user") // "user", "admin", "superadmin"
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  twoFactorEnabled  Boolean   @default(false)
+  twoFactorSecret   String?
+  accounts          Account[]
+  sessions          Session[]
+  verificationTokens VerificationToken[]
+
+  // New relations for dashboard features
+  prompts           Prompt[]         // Prompts created by the user
+  purchases         Purchase[]       // Prompts purchased by the user
+  favorites         Favorite[]       // Prompts favorited by the user
+  subscriptions     Subscription[]   // User subscriptions
+}
+
+// Account model for OAuth providers
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+// Session model for managing user sessions
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Verification token model for email verification and password reset
+model VerificationToken {
+  id         String   @id @default(cuid())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  type       String   // "email" or "password-reset"
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([identifier, token])
+}
+
+// Prompt model for storing prompt information
+model Prompt {
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  content     String    // The actual prompt content
+  price       Float
+  image       String?   // Optional image URL for the prompt
+  featured    Boolean   @default(false)
+  rating      Float     @default(0)
+  reviewCount Int       @default(0)
+  type        String    // "text" or "image"
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id])
+  categoryId  String
+  category    Category  @relation(fields: [categoryId], references: [id])
+  tags        Tag[]
+  purchases   Purchase[]
+  favorites   Favorite[]
+}
+
+// Category model for organizing prompts
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String
+  color       String    // Color code for UI display
+  icon        String?   // Icon name or path
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  prompts     Prompt[]
+}
+
+// Tag model for more specific categorization
+model Tag {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  prompts     Prompt[]
+}
+
+// Purchase model for tracking user purchases
+model Purchase {
+  id          String    @id @default(cuid())
+  purchaseDate DateTime  @default(now())
+  price       Float
+  status      String    @default("pending") // pending, completed, failed
+
+  // Relations
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  promptId    String
+  prompt      Prompt    @relation(fields: [promptId], references: [id])
+
+  // Payment relation
+  paymentId   String?
+  payment     Payment?  @relation(fields: [paymentId], references: [id])
+}
+
+// Favorite model for bookmarking prompts
+model Favorite {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+
+  // Relations
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  promptId    String
+  prompt      Prompt    @relation(fields: [promptId], references: [id])
+
+  // Ensure a user can only favorite a prompt once
+  @@unique([userId, promptId])
+}
+
+// Payment model for tracking crypto payments
+model Payment {
+  id                String    @id @default(cuid())
+  paymentId         String    @unique // NOWPayments payment ID
+  paymentStatus     String    // waiting, confirming, confirmed, sending, partially_paid, finished, failed, refunded, expired
+  payAddress        String    // Crypto address for payment
+  payAmount         Float     // Amount in crypto
+  payCurrency       String    // Crypto currency code
+  priceAmount       Float     // Original price amount
+  priceCurrency     String    @default("USD") // Original price currency
+  ipnSecret         String?   // Secret for IPN verification
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Relations
+  purchases         Purchase[]
+  subscriptions     Subscription[]
+}
+
+// Subscription model for managing recurring payments
+model Subscription {
+  id                String    @id @default(cuid())
+  status            String    @default("active") // active, cancelled, expired
+  startDate         DateTime  @default(now())
+  endDate           DateTime?
+  plan              String    // monthly, yearly
+  price             Float
+  autoRenew         Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Relations
+  userId            String
+  user              User      @relation(fields: [userId], references: [id])
+  paymentId         String?
+  payment           Payment?  @relation(fields: [paymentId], references: [id])
+}

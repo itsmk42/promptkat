@@ -1,0 +1,39 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4B0082" />
+      <stop offset="100%" stop-color="#9932CC" />
+    </linearGradient>
+    <linearGradient id="glow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF69B4" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#9370DB" stop-opacity="0.7" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bg-gradient)" />
+  
+  <!-- Grid pattern -->
+  <path d="M0 100 H800 M0 200 H800 M0 300 H800 M0 400 H800 M0 500 H800 M100 0 V600 M200 0 V600 M300 0 V600 M400 0 V600 M500 0 V600 M600 0 V600 M700 0 V600" 
+        stroke="white" stroke-opacity="0.1" stroke-width="1" />
+  
+  <!-- Glow effect -->
+  <circle cx="400" cy="300" r="150" fill="url(#glow-gradient)" filter="blur(40px)" />
+  
+  <!-- Image icon -->
+  <g transform="translate(325, 225)" fill="white">
+    <rect x="0" y="0" width="150" height="150" rx="10" stroke="white" stroke-width="8" fill="none" />
+    <circle cx="50" cy="50" r="15" />
+    <polygon points="0,150 60,90 150,150" />
+    <polygon points="70,90 150,30 150,150" />
+  </g>
+  
+  <!-- Text -->
+  <text x="400" y="450" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">
+    PromptCraft Image
+  </text>
+  <text x="400" y="480" font-family="Arial, sans-serif" font-size="16" fill="white" text-anchor="middle" opacity="0.8">
+    AI-Generated Visual
+  </text>
+</svg>

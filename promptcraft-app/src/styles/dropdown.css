@@ -1,0 +1,45 @@
+/* Custom dropdown styles */
+.dropdown-menu {
+  animation: fadeIn 0.2s ease-out;
+  transform-origin: top center;
+}
+
+.dropdown-option {
+  transition: all 0.15s ease;
+}
+
+.dropdown-option:hover {
+  background-color: rgba(139, 92, 246, 0.2);
+}
+
+.dropdown-option.selected {
+  background-color: rgba(139, 92, 246, 0.3);
+}
+
+.dropdown-button {
+  transition: all 0.2s ease;
+}
+
+.dropdown-button:focus {
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Crypto dropdown specific styles */
+.crypto-icon {
+  filter: drop-shadow(0 0 2px rgba(139, 92, 246, 0.5));
+}
+
+.crypto-dropdown-menu {
+  backdrop-filter: blur(8px);
+}

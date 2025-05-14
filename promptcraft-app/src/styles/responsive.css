@@ -1,0 +1,198 @@
+/* Additional responsive utilities */
+
+/* Compact UI elements */
+.touch-target {
+  min-height: 32px;
+  min-width: 32px;
+}
+
+button,
+[role="button"],
+a.btn,
+input[type="submit"],
+input[type="button"] {
+  min-height: 28px;
+  min-width: 28px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.625rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+textarea,
+select {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  min-height: 28px;
+}
+
+/* Touch-friendly tap targets only on mobile */
+@media (max-width: 640px) {
+  .touch-target {
+    min-height: 36px;
+    min-width: 36px;
+  }
+
+  button,
+  [role="button"],
+  a.btn,
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 36px;
+    min-width: 36px;
+    padding: 0.25rem 0.75rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="number"],
+  textarea,
+  select {
+    font-size: 14px; /* Prevents iOS zoom on focus but smaller than default */
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* Prevent content from being hidden under fixed header */
+.content-under-header {
+  padding-top: 60px;
+}
+
+@media (min-width: 640px) {
+  .content-under-header {
+    padding-top: 64px;
+  }
+}
+
+/* Responsive typography - more compact */
+.text-responsive {
+  font-size: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  font-family: var(--font-code);
+}
+
+.heading-responsive {
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
+  font-family: var(--font-code);
+}
+
+/* Code-style text classes */
+.code-text {
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+}
+
+.code-text-xs {
+  font-family: var(--font-code);
+  font-size: 0.625rem;
+}
+
+/* Responsive grid layouts */
+.grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .grid-responsive {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+}
+
+/* Responsive container padding */
+.container-responsive {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-responsive {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-responsive {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Responsive spacing */
+.my-responsive {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .my-responsive {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .my-responsive {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+}
+
+.py-responsive {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .py-responsive {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .py-responsive {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+/* Fix for iOS 100vh issue */
+.min-h-screen {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+/* Responsive images */
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive tables */
+@media (max-width: 640px) {
+  .table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
