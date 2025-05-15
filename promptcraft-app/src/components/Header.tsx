@@ -19,12 +19,12 @@ const Header: React.FC = () => {
 
   return (
     <nav className="bg-gray-900/90 backdrop-blur-md fixed top-0 w-full z-50 border-b border-gray-800">
-      <div className="container mx-auto px-2 py-1 flex items-center justify-between">
+      <div className="container mx-auto px-2 py-2 flex items-center justify-between">
         <Link href="/" className="text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 flex items-center">
-          <img src="/promptkat-logo.svg" alt="PromptKat Logo" className="inline-block w-8 h-8 sm:w-10 sm:h-10 mr-2 align-middle" />
+          <img src="/promptkat-logo.svg" alt="PromptKat Logo" className="inline-block w-10 h-10 sm:w-12 sm:h-12 mr-2 align-middle filter drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 hover:scale-110" />
           <div className="font-mono tracking-tight">
-            <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text text-sm sm:text-base">prompt</span>
-            <span className="bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text text-sm sm:text-base font-bold">Kat</span>
+            <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text text-sm sm:text-lg">prompt</span>
+            <span className="bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text text-sm sm:text-lg font-bold">Kat</span>
           </div>
         </Link>
 
