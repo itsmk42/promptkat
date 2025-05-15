@@ -1,9 +1,2 @@
-# Netlify redirects file
-# Handle Next.js routes
-/_next/static/*  /_next/static/:splat  200
-/_next/data/*    /_next/data/:splat    200
-/_next/*         /_next/:splat         200
-/api/*           /api/:splat           200
-
-# Handle client-side routing
-/*              /index.html            200
+# Netlify redirects file for Next.js
+/*    /.netlify/functions/next    200

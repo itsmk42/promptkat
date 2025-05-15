@@ -7,33 +7,25 @@
   NODE_VERSION = "18.17.0"
   NPM_VERSION = "9.6.7"
   NEXT_TELEMETRY_DISABLED = "1"
+  DATABASE_URL = "postgresql://neondb_owner:npg_0DT6jbMeCZhz@ep-royal-hall-a4qucmsn-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require"
+  NEXTAUTH_SECRET = "176d51945395dba4380eae7e1e365fcf0eb5aa5d67773153aa19adcd25996265"
+  NEXTAUTH_URL = "https://promptkat.netlify.app"
+  NEXTAUTH_URL_INTERNAL = "https://promptkat.netlify.app"
+  GOOGLE_CLIENT_ID = "543409632443-49n120a1h4rqiet9bg2qmv9ig41muau7.apps.googleusercontent.com"
+  GOOGLE_CLIENT_SECRET = "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"
+  GITHUB_CLIENT_ID = "Ov23limXpBzbefMiLgLb"
+  GITHUB_CLIENT_SECRET = "e9af057954db9250f566c182f2aa4dfde7d78190"
+  NOWPAYMENTS_API_KEY = "9BAYDR9-5WPMKMW-MW6W1XD-BDR5NTV"
+  NOWPAYMENTS_IPN_SECRET = "+82zwlRbZtf8HkRV6Wno/Gy9lb+hK2lZ"
+  USE_MOCK_PAYMENTS = "true"
+  USE_MOCK_DB = "false"
+  NEXT_PUBLIC_APP_URL = "https://promptkat.netlify.app"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Handle Next.js server-side rendering and client-side routing
-[[redirects]]
-  from = "/_next/static/*"
-  to = "/_next/static/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/_next/data/*"
-  to = "/_next/data/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/_next/*"
-  to = "/_next/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/api/*"
-  to = "/api/:splat"
-  status = 200
-
+# This redirect is for the Next.js app
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/.netlify/functions/next"
   status = 200
-  force = false

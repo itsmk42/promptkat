@@ -29,9 +29,6 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  // Netlify specific configuration
-  output: 'standalone',
-  distDir: '.next',
 };
 
 module.exports = nextConfig;
