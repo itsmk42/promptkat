@@ -76,6 +76,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-zinc-800 pt-3 sm:pt-4">
           <p className="text-[8px] font-mono">&copy; {new Date().getFullYear()} promptKat.all_rights_reserved // Built with Next.js and Tailwind CSS</p>
+          <p className="text-[8px] font-mono mt-1 text-purple-400/70">coded_with <span className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">Augment AI</span> // your_coding_companion</p>
         </div>
       </div>
     </footer>
