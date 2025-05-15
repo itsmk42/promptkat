@@ -6,7 +6,6 @@ import Providers from "@/providers/Providers";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: '--font-inter',
   display: 'swap',
 });
 
@@ -66,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className={`h-full ${inter.className}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="icon" href="/promptkat-logo.svg" />
