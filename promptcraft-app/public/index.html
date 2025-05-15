@@ -3,11 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0;url=/promptkat">
-  <title>Redirecting to PromptKat</title>
-  <script>
-    window.location.href = "/promptkat";
-  </script>
+  <title>PromptKat - AI Prompt Marketplace</title>
   <style>
     body {
       font-family: 'JetBrains Mono', 'Fira Code', monospace;
@@ -17,13 +13,13 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
       padding: 20px;
       text-align: center;
     }
     .container {
-      max-width: 600px;
+      max-width: 800px;
       padding: 40px;
       background-color: rgba(31, 41, 55, 0.4);
       border-radius: 12px;
@@ -31,7 +27,7 @@
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     }
     h1 {
-      font-size: 2rem;
+      font-size: 2.5rem;
       margin-bottom: 1rem;
       background: linear-gradient(to right, #8b5cf6, #ec4899);
       -webkit-background-clip: text;
@@ -43,27 +39,90 @@
       color: #d1d5db;
       margin-bottom: 2rem;
     }
-    .loader {
-      border: 4px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top: 4px solid #8b5cf6;
+    .btn {
+      display: inline-block;
+      background: linear-gradient(to right, #8b5cf6, #ec4899);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      margin: 10px;
+    }
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .logo span {
+      font-size: 1.5rem;
+      margin-left: 8px;
+    }
+    .logo img {
       width: 40px;
       height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .feature {
+      flex: 1 1 250px;
+      padding: 20px;
+      background-color: rgba(31, 41, 55, 0.6);
+      border-radius: 8px;
+      border: 1px solid rgba(75, 85, 99, 0.3);
+    }
+    .feature h3 {
+      color: #a78bfa;
+      margin-top: 0;
+    }
+    .loading {
+      margin-top: 30px;
+      font-style: italic;
+      color: #a78bfa;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Redirecting to PromptKat</h1>
-    <p>Please wait while we redirect you to the PromptKat application...</p>
-    <div class="loader"></div>
-    <p>If you are not redirected automatically, <a href="/promptkat" style="color: #8b5cf6;">click here</a>.</p>
+    <div class="logo">
+      <img src="/promptkat-logo.svg" alt="PromptKat Logo">
+      <span><span style="background: linear-gradient(to right, #8b5cf6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">prompt</span><span style="background: linear-gradient(to right, #ec4899, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;">Kat</span></span>
+    </div>
+    <h1>Welcome to PromptKat</h1>
+    <p>Your marketplace for high-quality AI prompts. Find the perfect prompts for your AI projects, or sell your own creations to the community.</p>
+
+    <div>
+      <a href="/login" class="btn">Login</a>
+      <a href="/join" class="btn">Sign Up</a>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <h3>Discover</h3>
+        <p>Browse thousands of prompts across multiple categories, from creative writing to programming.</p>
+      </div>
+      <div class="feature">
+        <h3>Create</h3>
+        <p>Craft and sell your own prompts to the community and earn from your expertise.</p>
+      </div>
+      <div class="feature">
+        <h3>Learn</h3>
+        <p>Improve your prompt engineering skills with our curated collections and guides.</p>
+      </div>
+    </div>
+
+    <p class="loading">Loading application... If this page persists, please refresh your browser.</p>
   </div>
 </body>
 </html>
