@@ -32,6 +32,7 @@ const Header: React.FC = () => {
         <div className="hidden md:flex items-center space-x-2 lg:space-x-3">
           <Link href="/#featured" className="hover:brightness-125 transition-colors text-sm font-mono text-blue-400">featured</Link>
           <Link href="/categories" className="hover:brightness-125 transition-colors text-sm font-mono text-green-400">categories</Link>
+          <Link href="/request-category" className="hover:brightness-125 transition-colors text-sm font-mono text-cyan-400">requestCategory</Link>
           <Link href="/pricing" className="hover:brightness-125 transition-colors text-sm font-mono text-yellow-400">pricing</Link>
           <Link href="/sellers" className="hover:brightness-125 transition-colors text-sm font-mono text-pink-400">forSellers</Link>
           <SearchBar className="ml-2 hidden lg:block" />
@@ -182,6 +183,18 @@ const Header: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
                 categories
+              </div>
+            </Link>
+            <Link
+              href="/request-category"
+              className="block px-2 py-1.5 rounded-sm text-xs font-medium text-cyan-400 hover:bg-gray-700 active:bg-gray-600 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <div className="flex items-center">
+                <svg className="w-3 h-3 mr-1.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                requestCategory
               </div>
             </Link>
             <Link

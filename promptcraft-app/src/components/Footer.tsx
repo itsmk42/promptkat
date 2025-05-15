@@ -39,6 +39,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-1">
               <li><Link href="/" className="hover:text-purple-400 transition-colors text-[8px] inline-block py-0.5 font-mono">.home</Link></li>
               <li><Link href="/categories" className="hover:text-purple-400 transition-colors text-[8px] inline-block py-0.5 font-mono">.categories</Link></li>
+              <li><Link href="/request-category" className="hover:text-purple-400 transition-colors text-[8px] inline-block py-0.5 font-mono">.request_category</Link></li>
               <li><Link href="/submit" className="hover:text-purple-400 transition-colors text-[8px] inline-block py-0.5 font-mono">.submit_prompt</Link></li>
               <li><Link href="/pricing" className="hover:text-purple-400 transition-colors text-[8px] inline-block py-0.5 font-mono">.pricing</Link></li>
             </ul>
