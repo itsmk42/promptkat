@@ -9,11 +9,11 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-    unoptimized: true, // Required for static export
+    unoptimized: process.env.NODE_ENV === 'production', // This helps with Netlify deployment
   },
   experimental: {
     serverActions: {
-      allowedOrigins: ['localhost:3000', 'localhost:3001', 'itsmk42.github.io'],
+      allowedOrigins: ['localhost:3000', 'localhost:3001', 'promptkat.netlify.app'],
     },
   },
   transpilePackages: ['tailwindcss'],
@@ -29,13 +29,9 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  // GitHub Pages configuration
-  output: 'export',
+  // Netlify specific configuration
+  output: 'standalone',
   distDir: '.next',
-  // Add basePath and assetPrefix if deploying to a subdirectory
-  basePath: '/promptkat',
-  assetPrefix: '/promptkat',
-  trailingSlash: true,
 };
 
 module.exports = nextConfig;
