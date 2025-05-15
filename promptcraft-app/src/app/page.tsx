@@ -161,6 +161,58 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Flexible Pricing Options</h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">Choose the plan that works best for your AI prompt needs</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Pay Per Prompt */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-8 flex flex-col items-center shadow-lg">
+              <h3 className="text-xl font-bold mb-2">Pay Per Prompt</h3>
+              <p className="text-gray-400 mb-4">Perfect for occasional users</p>
+              <div className="text-3xl font-extrabold text-purple-400 mb-2">$3.99 <span className="text-sm font-medium text-gray-400">/ prompt</span></div>
+              <ul className="text-gray-300 text-xs mb-6 space-y-2 text-left">
+                <li>Individual prompt purchase</li>
+                <li>Lifetime access</li>
+                <li>Minor updates included</li>
+                <li>No subscription required</li>
+              </ul>
+              <button className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg font-medium transition-colors w-full">Buy Prompt</button>
+            </div>
+            {/* Monthly Access */}
+            <div className="bg-gradient-to-br from-purple-600 to-pink-600 border-4 border-purple-400 rounded-xl p-8 flex flex-col items-center shadow-2xl relative">
+              <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-black px-4 py-1 rounded-full text-xs font-bold shadow">Most Popular</span>
+              <h3 className="text-xl font-bold mb-2 text-white">Monthly Access</h3>
+              <p className="text-gray-200 mb-4">Best value for regular users</p>
+              <div className="text-3xl font-extrabold text-white mb-2">$19.99 <span className="text-sm font-medium text-gray-200">/ month</span></div>
+              <ul className="text-white text-xs mb-6 space-y-2 text-left">
+                <li>Unlimited prompt downloads</li>
+                <li>Access to premium prompts</li>
+                <li>Regular updates & improvements</li>
+                <li>Prompt customization tool</li>
+              </ul>
+              <button className="bg-white text-purple-700 font-bold px-6 py-2 rounded-lg transition-colors w-full hover:bg-gray-100">Start Monthly</button>
+            </div>
+            {/* Annual PRO */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-8 flex flex-col items-center shadow-lg">
+              <h3 className="text-xl font-bold mb-2">Annual PRO</h3>
+              <p className="text-gray-400 mb-4">For committed power users</p>
+              <div className="text-3xl font-extrabold text-purple-400 mb-2">$149.99 <span className="text-sm font-medium text-gray-400">/ year</span></div>
+              <ul className="text-gray-300 text-xs mb-6 space-y-2 text-left">
+                <li>Everything in Monthly</li>
+                <li>Save 38% vs monthly</li>
+                <li>Early access to new prompts</li>
+                <li>Priority customer support</li>
+              </ul>
+              <button className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg font-medium transition-colors w-full">Go Annual PRO</button>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
