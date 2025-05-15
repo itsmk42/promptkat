@@ -55,9 +55,9 @@ export default function RootLayout({
         <link rel="icon" href="/promptkat-logo.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/promptkat-logo.svg" />
       </head>
-      <body className="bg-black text-white flex flex-col min-h-screen antialiased selection:bg-purple-500 selection:text-white font-mono">
+      <body className="flex flex-col min-h-screen antialiased selection:bg-purple-500 selection:text-white font-mono">
         <Providers>
-          <div className="bg-gradient-to-b from-purple-900/20 to-transparent min-h-screen">
+          <div className="min-h-screen">
             <main className="flex-grow">
               {children}
             </main>

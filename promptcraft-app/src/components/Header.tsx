@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from "next-auth/react";
 import SearchBar from '@/components/SearchBar';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const Header: React.FC = () => {
   const { data: session, status } = useSession();
@@ -18,7 +19,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <nav className="bg-gray-900/90 backdrop-blur-md fixed top-0 w-full z-50 border-b border-gray-800">
+    <nav className="fixed top-0 w-full z-50 border-b border-gray-800 backdrop-blur-md" style={{ backgroundColor: 'var(--nav-bg)', borderColor: 'var(--nav-border)' }}>
       <div className="container mx-auto px-2 py-2 flex items-center justify-between">
         <Link href="/" className="text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 flex items-center">
           <img src="/promptkat-logo.svg" alt="PromptKat Logo" className="inline-block w-10 h-10 sm:w-12 sm:h-12 mr-2 align-middle filter drop-shadow-lg hover:drop-shadow-xl transition-all duration-300 hover:scale-110" />
@@ -40,6 +41,9 @@ const Header: React.FC = () => {
 
         {/* Authentication Buttons */}
         <div className="hidden md:flex items-center space-x-3">
+          {/* Theme Toggle Button */}
+          <ThemeToggle />
+
           {status === 'loading' ? (
             <div className="w-6 h-6 rounded-sm bg-gray-700 animate-pulse"></div>
           ) : session?.user ? (
@@ -124,10 +128,13 @@ const Header: React.FC = () => {
         <div className="flex md:hidden items-center space-x-1.5">
           {!isMenuOpen && (
             <>
+              {/* Mobile Theme Toggle */}
+              <ThemeToggle />
+
               {session?.user ? (
                 <button
                   onClick={toggleProfileMenu}
-                  className="flex items-center focus:outline-none mr-1.5"
+                  className="flex items-center focus:outline-none mr-1.5 ml-1.5"
                   aria-expanded={isProfileMenuOpen}
                   aria-haspopup="true"
                 >
@@ -136,7 +143,7 @@ const Header: React.FC = () => {
                   </div>
                 </button>
               ) : (
-                <Link href="/login" className="text-[10px] hover:text-purple-400 transition-colors mr-1.5 font-mono">.login</Link>
+                <Link href="/login" className="text-[10px] hover:text-purple-400 transition-colors mr-1.5 ml-1.5 font-mono">.login</Link>
               )}
             </>
           )}
