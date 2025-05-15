@@ -75,7 +75,17 @@ const PromptCard: React.FC<PromptCardProps> = ({
         )}
         <div className="p-4 sm:p-6 flex-grow flex flex-col">
           <div className="flex justify-between items-start mb-2 flex-wrap gap-2">
-            <span className={`px-2 py-1 rounded-full text-xs bg-${categoryColor}-500/20 text-${categoryColor}-400 inline-block`}>
+            <span className={`px-2 py-1 rounded-full text-xs inline-block ${
+              categoryColor === 'purple' ? 'bg-purple-500/20 text-purple-400' :
+              categoryColor === 'pink' ? 'bg-pink-500/20 text-pink-400' :
+              categoryColor === 'orange' ? 'bg-orange-500/20 text-orange-400' :
+              categoryColor === 'yellow' ? 'bg-yellow-500/20 text-yellow-400' :
+              categoryColor === 'green' ? 'bg-green-500/20 text-green-400' :
+              categoryColor === 'blue' ? 'bg-blue-500/20 text-blue-400' :
+              categoryColor === 'teal' ? 'bg-teal-500/20 text-teal-400' :
+              categoryColor === 'red' ? 'bg-red-500/20 text-red-400' :
+              'bg-gray-500/20 text-gray-400'
+            }`}>
               {category}
             </span>
             <span className="font-bold text-purple-400">${price.toFixed(2)}</span>
