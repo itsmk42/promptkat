@@ -5,12 +5,14 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "NEXT_DISABLE_ESLINT=1 next build",
-    "postbuild": "node netlify.js",
+    "export": "next export",
+    "deploy": "npm run build && npm run export && touch out/.nojekyll",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watch"
   },
+  "homepage": "https://itsmk42.github.io/promptkat",
   "dependencies": {
     "@auth/core": "^0.34.2",
     "@prisma/client": "^6.7.0",
