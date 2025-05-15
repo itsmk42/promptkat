@@ -9,7 +9,7 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-    unoptimized: process.env.NODE_ENV === 'production', // This helps with Netlify deployment
+    unoptimized: true, // Required for Netlify
   },
   experimental: {
     serverActions: {

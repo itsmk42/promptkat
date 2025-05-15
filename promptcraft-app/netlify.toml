@@ -3,7 +3,7 @@
   publish = ".next"
 
 [build.environment]
-  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+  NETLIFY_NEXT_PLUGIN_SKIP = "false"
   NODE_VERSION = "18.17.0"
   NPM_VERSION = "9.6.7"
   NEXT_TELEMETRY_DISABLED = "1"
@@ -23,9 +23,3 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-
-# This redirect is for the Next.js app
-[[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/next"
-  status = 200
