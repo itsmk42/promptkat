@@ -138,7 +138,7 @@ export default function Categories() {
             <p className="text-gray-300 max-w-2xl mx-auto mb-8">
               Our collection is constantly growing. If you need a specific type of prompt that isn't listed here, let us know!
             </p>
-            <Link href="/contact" className="bg-gradient-to-r from-purple-500 to-pink-600 px-8 py-4 rounded-lg text-lg font-medium hover:opacity-90 transition inline-block">
+            <Link href="/request-category" className="bg-gradient-to-r from-purple-500 to-pink-600 px-8 py-4 rounded-lg text-lg font-medium hover:opacity-90 transition inline-block">
               Request a Category
             </Link>
           </div>
