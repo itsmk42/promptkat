@@ -4,12 +4,15 @@
 
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
+  NODE_VERSION = "18.17.0"
+  NPM_VERSION = "9.6.7"
+  NEXT_TELEMETRY_DISABLED = "1"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+# These redirects ensure that client-side routing works correctly
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/.netlify/functions/next"
   status = 200
-  force = false
