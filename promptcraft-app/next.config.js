@@ -1,12 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
-    domains: ['localhost', 'images.unsplash.com'],
+    domains: ['localhost', 'images.unsplash.com', 'via.placeholder.com', 'picsum.photos'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
   experimental: {
-    serverComponentsExternalPackages: [],
+    serverActions: {
+      allowedOrigins: ['localhost:3000', 'localhost:3001'],
+    },
   },
   transpilePackages: ['tailwindcss'],
 };
