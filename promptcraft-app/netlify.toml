@@ -11,8 +11,29 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# These redirects ensure that client-side routing works correctly
+# Handle Next.js server-side rendering and client-side routing
+[[redirects]]
+  from = "/_next/static/*"
+  to = "/_next/static/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/_next/data/*"
+  to = "/_next/data/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/_next/*"
+  to = "/_next/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "/api/:splat"
+  status = 200
+
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/next"
+  to = "/index.html"
   status = 200
+  force = false

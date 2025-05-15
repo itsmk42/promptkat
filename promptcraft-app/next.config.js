@@ -9,6 +9,7 @@ const nextConfig = {
         hostname: '**',
       },
     ],
+    unoptimized: process.env.NODE_ENV === 'production', // This helps with Netlify deployment
   },
   experimental: {
     serverActions: {
@@ -28,6 +29,9 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  // Netlify specific configuration
+  output: 'standalone',
+  distDir: '.next',
 };
 
 module.exports = nextConfig;

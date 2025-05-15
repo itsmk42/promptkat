@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "NEXT_DISABLE_ESLINT=1 next build",
+    "postbuild": "node netlify.js",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
