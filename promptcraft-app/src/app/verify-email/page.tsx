@@ -1,11 +1,11 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function VerifyEmail() {
+function VerifyEmailContent() {
   const { data: session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -234,5 +234,38 @@ export default function VerifyEmail() {
         </div>
       </div>
     </Layout>
+  );
+}
+
+// Loading fallback component
+function VerifyEmailLoading() {
+  return (
+    <Layout>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white">
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">Verify Your Email</h1>
+        <p className="text-lg text-gray-300 mb-8 max-w-xl text-center">
+          Loading verification page...
+        </p>
+        <div className="w-full max-w-md bg-gray-800/60 rounded-xl p-8 border border-gray-700 shadow-lg">
+          <div className="animate-pulse space-y-6">
+            <div className="h-10 bg-gray-700 rounded"></div>
+            <div className="h-10 bg-gray-700 rounded"></div>
+            <div className="flex space-x-4">
+              <div className="h-10 bg-gray-700 rounded flex-1"></div>
+              <div className="h-10 bg-gray-700 rounded flex-1"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
+}
+
+// Main component with Suspense boundary
+export default function VerifyEmail() {
+  return (
+    <Suspense fallback={<VerifyEmailLoading />}>
+      <VerifyEmailContent />
+    </Suspense>
   );
 }

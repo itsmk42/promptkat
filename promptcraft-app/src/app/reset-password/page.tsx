@@ -1,54 +1,54 @@
 "use client";
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, FormEvent, Suspense } from 'react';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function ResetPassword() {
+function ResetPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
-  
+
   const token = searchParams.get('token');
   const email = searchParams.get('email');
-  
+
   useEffect(() => {
     if (!token || !email) {
       setError('Invalid or missing reset token. Please request a new password reset link.');
     }
   }, [token, email]);
-  
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (!token || !email) {
       setError('Invalid or missing reset token. Please request a new password reset link.');
       return;
     }
-    
+
     if (!password) {
       setError('Please enter a new password');
       return;
     }
-    
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-    
+
     if (password.length < 8) {
       setError('Password must be at least 8 characters long');
       return;
     }
-    
+
     setIsLoading(true);
     setError('');
-    
+
     try {
       const response = await fetch('/api/auth/reset-password', {
         method: 'POST',
@@ -57,15 +57,15 @@ export default function ResetPassword() {
         },
         body: JSON.stringify({ token, email, password }),
       });
-      
+
       const data = await response.json();
-      
+
       if (!response.ok) {
         throw new Error(data.error || 'Failed to reset password');
       }
-      
+
       setIsSubmitted(true);
-      
+
       // Redirect to login after 3 seconds
       setTimeout(() => {
         router.push('/login');
@@ -77,7 +77,7 @@ export default function ResetPassword() {
       setIsLoading(false);
     }
   };
-  
+
   return (
     <Layout>
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white">
@@ -105,38 +105,38 @@ export default function ResetPassword() {
                   {error}
                 </div>
               )}
-              
+
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">New Password</label>
-                  <input 
-                    type="password" 
-                    id="password" 
+                  <input
+                    type="password"
+                    id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-2 rounded-lg bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" 
+                    className="w-full px-4 py-2 rounded-lg bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="Enter new password"
                     disabled={isLoading || !token || !email}
-                    required 
+                    required
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-1">Confirm Password</label>
-                  <input 
-                    type="password" 
-                    id="confirmPassword" 
+                  <input
+                    type="password"
+                    id="confirmPassword"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full px-4 py-2 rounded-lg bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" 
+                    className="w-full px-4 py-2 rounded-lg bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="Confirm new password"
                     disabled={isLoading || !token || !email}
-                    required 
+                    required
                   />
                 </div>
-                
-                <button 
-                  type="submit" 
+
+                <button
+                  type="submit"
                   className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition flex items-center justify-center"
                   disabled={isLoading || !token || !email}
                 >
@@ -150,7 +150,7 @@ export default function ResetPassword() {
                     </>
                   ) : 'Reset Password'}
                 </button>
-                
+
                 <div className="text-center mt-4 text-sm text-gray-400">
                   <Link href="/forgot-password" className="text-purple-400 hover:text-purple-300">Request a new reset link</Link>
                 </div>
@@ -160,5 +160,26 @@ export default function ResetPassword() {
         </div>
       </div>
     </Layout>
+  );
+}
+
+// Loading fallback component
+function ResetPasswordLoading() {
+  return (
+    <Layout>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+        <p className="mt-4 text-gray-300">Loading reset password form...</p>
+      </div>
+    </Layout>
+  );
+}
+
+// Main component with Suspense boundary
+export default function ResetPassword() {
+  return (
+    <Suspense fallback={<ResetPasswordLoading />}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }

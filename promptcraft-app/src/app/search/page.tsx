@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -150,10 +150,10 @@ const sortOptions = [
   { name: 'Rating', value: 'rating' }
 ];
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
-  
+
   // State for filters
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedType, setSelectedType] = useState('all');
@@ -200,7 +200,7 @@ export default function SearchPage() {
       }
 
       // Filter by tags
-      if (selectedTags.length > 0 && 
+      if (selectedTags.length > 0 &&
           !(prompt.tags && selectedTags.some(tag => prompt.tags.includes(tag)))) {
         return false;
       }
@@ -228,7 +228,7 @@ export default function SearchPage() {
             const aTitle = a.title.toLowerCase();
             const bTitle = b.title.toLowerCase();
             const queryLower = query.toLowerCase();
-            
+
             if (aTitle.includes(queryLower) && !bTitle.includes(queryLower)) {
               return -1;
             }
@@ -242,9 +242,9 @@ export default function SearchPage() {
 
   // Toggle tag selection
   const toggleTag = (tag: string) => {
-    setSelectedTags(prev => 
-      prev.includes(tag) 
-        ? prev.filter(t => t !== tag) 
+    setSelectedTags(prev =>
+      prev.includes(tag)
+        ? prev.filter(t => t !== tag)
         : [...prev, tag]
     );
   };
@@ -282,7 +282,7 @@ export default function SearchPage() {
                 <div className="bg-gray-800/40 rounded-xl p-6 border border-gray-700 sticky top-24">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold">Filters</h2>
-                    <button 
+                    <button
                       onClick={resetFilters}
                       className="text-sm text-purple-400 hover:text-purple-300"
                     >
@@ -449,7 +449,7 @@ export default function SearchPage() {
                             </div>
                             <h3 className="text-xl font-bold mb-2">{prompt.title}</h3>
                             <p className="text-gray-400 text-sm mb-4">{prompt.description}</p>
-                            
+
                             {/* Tags */}
                             {prompt.tags && prompt.tags.length > 0 && (
                               <div className="flex flex-wrap gap-1 mb-4">
@@ -460,7 +460,7 @@ export default function SearchPage() {
                                 ))}
                               </div>
                             )}
-                            
+
                             <div className="mt-auto flex justify-between items-center">
                               <div className="flex items-center">
                                 <span className="font-bold text-purple-400">${prompt.price}</span>
@@ -485,5 +485,49 @@ export default function SearchPage() {
         </div>
       </div>
     </Layout>
+  );
+}
+
+// Loading fallback component
+function SearchPageLoading() {
+  return (
+    <Layout>
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white pt-24 pb-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-8">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                Searching...
+              </h1>
+              <div className="animate-pulse h-12 bg-gray-700 rounded-lg mb-6"></div>
+              <p className="text-gray-400">
+                Loading results
+              </p>
+            </div>
+            <div className="flex flex-col lg:flex-row gap-8">
+              <div className="lg:w-1/4">
+                <div className="bg-gray-800/40 rounded-xl p-6 border border-gray-700 h-96 animate-pulse"></div>
+              </div>
+              <div className="lg:w-3/4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="bg-gray-800/40 rounded-xl overflow-hidden border border-gray-700 h-64 animate-pulse"></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
+}
+
+// Main component with Suspense boundary
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<SearchPageLoading />}>
+      <SearchPageContent />
+    </Suspense>
   );
 }

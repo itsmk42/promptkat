@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/Layout';
@@ -16,44 +16,44 @@ interface PaymentStatus {
   pay_currency: string;
 }
 
-export default function PaymentStatus() {
+function PaymentStatusContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { status } = useSession();
-  
+
   const [paymentId, setPaymentId] = useState<string | null>(searchParams.get('paymentId'));
   const [paymentType, setPaymentType] = useState<string | null>(searchParams.get('type') || 'prompt');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [paymentStatus, setPaymentStatus] = useState<PaymentStatus | null>(null);
   const [pollingInterval, setPollingInterval] = useState<NodeJS.Timeout | null>(null);
-  
+
   // Redirect if not authenticated
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/login?callbackUrl=/payment/status' + (paymentId ? `?paymentId=${paymentId}` : ''));
     }
   }, [status, router, paymentId]);
-  
+
   // Redirect if no paymentId
   useEffect(() => {
     if (status === 'authenticated' && !paymentId) {
       router.push('/');
     }
   }, [status, paymentId, router]);
-  
+
   // Fetch payment status when component mounts
   useEffect(() => {
     if (status === 'authenticated' && paymentId) {
       fetchPaymentStatus();
-      
+
       // Set up polling for payment status updates
       const interval = setInterval(() => {
         fetchPaymentStatus();
       }, 10000); // Poll every 10 seconds
-      
+
       setPollingInterval(interval);
-      
+
       // Clean up interval on unmount
       return () => {
         if (interval) {
@@ -62,7 +62,7 @@ export default function PaymentStatus() {
       };
     }
   }, [status, paymentId]);
-  
+
   // Stop polling when payment is completed or failed
   useEffect(() => {
     if (paymentStatus && ['finished', 'failed', 'expired', 'refunded'].includes(paymentStatus.payment_status)) {
@@ -72,18 +72,18 @@ export default function PaymentStatus() {
       }
     }
   }, [paymentStatus, pollingInterval]);
-  
+
   const fetchPaymentStatus = async () => {
     if (!paymentId) return;
-    
+
     try {
       const response = await fetch(`/api/payments/status?paymentId=${paymentId}`);
       const data = await response.json();
-      
+
       if (!response.ok) {
         throw new Error(data.error || 'Failed to fetch payment status');
       }
-      
+
       setPaymentStatus(data);
     } catch (error: any) {
       console.error('Error fetching payment status:', error);
@@ -92,10 +92,10 @@ export default function PaymentStatus() {
       setLoading(false);
     }
   };
-  
+
   const getStatusMessage = () => {
     if (!paymentStatus) return '';
-    
+
     switch (paymentStatus.payment_status) {
       case 'waiting':
         return 'Waiting for payment. Please send the exact amount to the provided address.';
@@ -108,8 +108,8 @@ export default function PaymentStatus() {
       case 'partially_paid':
         return 'Partial payment received. Please send the remaining amount.';
       case 'finished':
-        return paymentType === 'subscription' 
-          ? 'Payment completed! Your subscription is now active.' 
+        return paymentType === 'subscription'
+          ? 'Payment completed! Your subscription is now active.'
           : 'Payment completed! Your prompt purchase was successful.';
       case 'failed':
         return 'Payment failed. Please try again.';
@@ -121,10 +121,10 @@ export default function PaymentStatus() {
         return 'Processing payment...';
     }
   };
-  
+
   const getStatusColor = () => {
     if (!paymentStatus) return 'bg-gray-700';
-    
+
     switch (paymentStatus.payment_status) {
       case 'finished':
         return 'bg-green-900/50 border-green-700 text-green-100';
@@ -138,7 +138,7 @@ export default function PaymentStatus() {
         return 'bg-blue-900/50 border-blue-700 text-blue-100';
     }
   };
-  
+
   if (status === 'loading' || loading) {
     return (
       <Layout>
@@ -149,12 +149,12 @@ export default function PaymentStatus() {
       </Layout>
     );
   }
-  
+
   return (
     <Layout>
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white py-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-6">Payment Status</h1>
-        
+
         {error ? (
           <div className="w-full max-w-md bg-red-900/50 border border-red-700 text-red-100 px-6 py-4 rounded-lg mb-6">
             <p>{error}</p>
@@ -169,12 +169,12 @@ export default function PaymentStatus() {
             <div className={`px-6 py-4 rounded-lg mb-6 ${getStatusColor()}`}>
               <p className="font-medium">{getStatusMessage()}</p>
             </div>
-            
+
             {paymentStatus && (
               <div className="space-y-4">
                 <div>
                   <h2 className="text-xl font-semibold mb-4">Payment Details</h2>
-                  
+
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-400">Payment ID:</span>
@@ -198,7 +198,7 @@ export default function PaymentStatus() {
                     </div>
                   </div>
                 </div>
-                
+
                 {['waiting', 'partially_paid'].includes(paymentStatus.payment_status) && (
                   <div className="mt-6 p-4 bg-gray-700/50 rounded-lg border border-gray-600">
                     <h3 className="font-medium mb-2">Payment Instructions</h3>
@@ -213,7 +213,7 @@ export default function PaymentStatus() {
                     </p>
                   </div>
                 )}
-                
+
                 {['finished'].includes(paymentStatus.payment_status) && (
                   <div className="mt-6">
                     <Link
@@ -224,7 +224,7 @@ export default function PaymentStatus() {
                     </Link>
                   </div>
                 )}
-                
+
                 {['failed', 'expired', 'refunded'].includes(paymentStatus.payment_status) && (
                   <div className="mt-6">
                     <Link
@@ -237,7 +237,7 @@ export default function PaymentStatus() {
                 )}
               </div>
             )}
-            
+
             <div className="mt-6 pt-6 border-t border-gray-700">
               <Link href="/" className="text-center block text-gray-400 hover:text-white transition-colors">
                 Return to Home
@@ -245,7 +245,7 @@ export default function PaymentStatus() {
             </div>
           </div>
         )}
-        
+
         <div className="mt-8 text-center max-w-md">
           <p className="text-gray-400 text-sm">
             Need help with your payment? Contact our support team at support@promptcraft.ai
@@ -253,5 +253,26 @@ export default function PaymentStatus() {
         </div>
       </div>
     </Layout>
+  );
+}
+
+// Loading fallback component
+function PaymentStatusLoading() {
+  return (
+    <Layout>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+        <p className="mt-4 text-gray-300">Loading payment status...</p>
+      </div>
+    </Layout>
+  );
+}
+
+// Main component with Suspense boundary
+export default function PaymentStatus() {
+  return (
+    <Suspense fallback={<PaymentStatusLoading />}>
+      <PaymentStatusContent />
+    </Suspense>
   );
 }

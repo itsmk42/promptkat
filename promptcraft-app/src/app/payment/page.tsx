@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import CryptoDropdown from '@/components/CryptoDropdown';
 
-export default function Payment() {
+function PaymentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session, status } = useSession();
@@ -220,5 +220,26 @@ export default function Payment() {
         </div>
       </div>
     </Layout>
+  );
+}
+
+// Loading fallback component
+function PaymentLoading() {
+  return (
+    <Layout>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+        <p className="mt-4 text-gray-300">Loading payment options...</p>
+      </div>
+    </Layout>
+  );
+}
+
+// Main component with Suspense boundary
+export default function Payment() {
+  return (
+    <Suspense fallback={<PaymentLoading />}>
+      <PaymentContent />
+    </Suspense>
   );
 }
