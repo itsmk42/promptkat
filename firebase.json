@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "promptcraft-app/static-site",
+    "public": "promptcraft-app/public",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -9,8 +9,15 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/index.html"
+        "function": "nextjs"
       }
+    ]
+  },
+  "functions": {
+    "source": "promptcraft-app/functions",
+    "runtime": "nodejs18",
+    "predeploy": [
+      "cd promptcraft-app && npm run build"
     ]
   }
 }
