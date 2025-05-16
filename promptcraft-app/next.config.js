@@ -9,11 +9,11 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-    unoptimized: true, // Required for Netlify
+    unoptimized: true, // Required for static export
   },
   experimental: {
     serverActions: {
-      allowedOrigins: ['localhost:3000', 'localhost:3001', 'promptkat.netlify.app'],
+      allowedOrigins: ['localhost:3000', 'localhost:3001', 'anlimitedmani.web.app', 'anlimitedmani.firebaseapp.com'],
     },
   },
   transpilePackages: ['tailwindcss'],
@@ -29,6 +29,8 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  // Firebase specific configuration
+  output: 'export',
 };
 
 module.exports = nextConfig;

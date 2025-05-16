@@ -5,11 +5,12 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "NEXT_DISABLE_ESLINT=1 next build",
-    "postbuild": "node netlify.js",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "firebase:deploy": "firebase deploy --only hosting",
+    "deploy": "npm run build && npm run firebase:deploy"
   },
   "dependencies": {
     "@auth/core": "^0.34.2",
