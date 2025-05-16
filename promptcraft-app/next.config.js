@@ -30,7 +30,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   // Firebase specific configuration
-  output: 'standalone',
+  output: 'export',
 };
 
 module.exports = nextConfig;
