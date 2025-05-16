@@ -9,7 +9,7 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-    unoptimized: true, // Required for static export
+    unoptimized: true,
   },
   experimental: {
     serverActions: {
@@ -29,8 +29,8 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  // Firebase specific configuration
-  output: 'export',
+  // Disable static export for Firebase Functions
+  distDir: '.next',
 };
 
 module.exports = nextConfig;
