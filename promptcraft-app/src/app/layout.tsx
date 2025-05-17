@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
 import Providers from "@/providers/Providers";
+// Import debug file to check environment variables
+import './debug-env';
 
 const inter = Inter({
   subsets: ["latin"],
