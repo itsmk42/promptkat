@@ -8,29 +8,7 @@
 @tailwind utilities;
 
 :root {
-  /* Light mode variables */
-  --background: #ffffff;
-  --foreground: #171717;
-  --card-bg: #f3f4f6;
-  --card-border: #e5e7eb;
-  --nav-bg: rgba(249, 250, 251, 0.9);
-  --nav-border: #e5e7eb;
-  --primary: #8b5cf6;
-  --primary-hover: #7c3aed;
-  --secondary: #ec4899;
-  --accent: #f97316;
-  --text-primary: #171717;
-  --text-secondary: #4b5563;
-  --text-muted: #6b7280;
-  --font-code: 'JetBrains Mono', 'Fira Code', monospace;
-  --compact-spacing: 0.5rem;
-  --compact-padding: 0.25rem 0.5rem;
-  --compact-text: 0.75rem;
-  --compact-text-xs: 0.625rem;
-}
-
-/* Dark mode variables */
-.dark-mode {
+  /* Dark mode variables (now the default) */
   --background: #0a0a0a;
   --foreground: #ededed;
   --card-bg: #1f2937;
@@ -44,23 +22,16 @@
   --text-primary: #f9fafb;
   --text-secondary: #e5e7eb;
   --text-muted: #9ca3af;
+  --font-code: 'JetBrains Mono', 'Fira Code', monospace;
+  --compact-spacing: 0.5rem;
+  --compact-padding: 0.25rem 0.5rem;
+  --compact-text: 0.75rem;
+  --compact-text-xs: 0.625rem;
 }
 
-/* Light mode variables */
-.light-mode {
-  --background: #ffffff;
-  --foreground: #171717;
-  --card-bg: #f3f4f6;
-  --card-border: #e5e7eb;
-  --nav-bg: rgba(249, 250, 251, 0.9);
-  --nav-border: #e5e7eb;
-  --primary: #8b5cf6;
-  --primary-hover: #7c3aed;
-  --secondary: #ec4899;
-  --accent: #f97316;
-  --text-primary: #171717;
-  --text-secondary: #4b5563;
-  --text-muted: #6b7280;
+/* Dark mode class for compatibility with existing code */
+.dark-mode {
+  /* Same as root variables - no need to change anything */
 }
 
 @theme inline {

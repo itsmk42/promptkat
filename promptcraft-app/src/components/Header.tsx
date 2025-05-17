@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from "next-auth/react";
 import SearchBar from '@/components/SearchBar';
-import ThemeToggle from '@/components/ThemeToggle';
 
 const Header: React.FC = () => {
   const { data: session, status } = useSession();
@@ -41,9 +40,6 @@ const Header: React.FC = () => {
 
         {/* Authentication Buttons */}
         <div className="hidden md:flex items-center space-x-3">
-          {/* Theme Toggle Button */}
-          <ThemeToggle />
-
           {status === 'loading' ? (
             <div className="w-6 h-6 rounded-sm bg-gray-700 animate-pulse"></div>
           ) : session?.user ? (
@@ -128,9 +124,6 @@ const Header: React.FC = () => {
         <div className="flex md:hidden items-center space-x-1.5">
           {!isMenuOpen && (
             <>
-              {/* Mobile Theme Toggle */}
-              <ThemeToggle />
-
               {session?.user ? (
                 <button
                   onClick={toggleProfileMenu}

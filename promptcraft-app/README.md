@@ -6,7 +6,7 @@ PromptKat is a marketplace for AI prompts, where users can discover, share, and 
 
 - Browse and search for prompts by category, type, and more
 - User authentication with email/password, GitHub, and Google
-- Light and dark mode support
+- Dark mode UI
 - Responsive design for all devices
 - Secure payment processing
 - User profiles and dashboard

@@ -1,41 +1,27 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 
-type Theme = 'dark' | 'light';
-
+// Simplified context since we only have dark mode now
 interface ThemeContextType {
-  theme: Theme;
-  toggleTheme: () => void;
+  theme: 'dark';
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>('dark');
-
-  // Initialize theme from localStorage on client side
+  // Initialize dark mode on client side
   useEffect(() => {
-    const storedTheme = localStorage.getItem('theme') as Theme | null;
-    if (storedTheme) {
-      setTheme(storedTheme);
-      document.documentElement.classList.toggle('dark-mode', storedTheme === 'dark');
-      document.documentElement.classList.toggle('light-mode', storedTheme === 'light');
-    }
+    // Always set dark mode
+    document.documentElement.classList.add('dark-mode');
+    document.documentElement.classList.remove('light-mode');
+
+    // Store the theme preference in localStorage for consistency
+    localStorage.setItem('theme', 'dark');
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    
-    // Toggle classes on the document element
-    document.documentElement.classList.toggle('dark-mode', newTheme === 'dark');
-    document.documentElement.classList.toggle('light-mode', newTheme === 'light');
-  };
-
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme: 'dark' }}>
       {children}
     </ThemeContext.Provider>
   );
